@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Home</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <main class="main-section">
+        <!--display all blogs-->
+        <section class="position-relative section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div th:if="${posts}">
+                            <h1 class="mb-3">All Posts</h1>
+                            <p class="">Informasi Seputar Backend developer, frontend developer dan devops</p>
+                            <div class="row gy-4">
+                                <div class="col-sm-6"th:each="post : ${posts}">
+                                    <div class="card">
+                                        <div class="position-relative">
+                                            <div class="card-img-container">
+                                            <img th:if="${post.photo == null}"  th:src="@{/img/gitar.jpg}"  class="card-img" alt="guitar">
+                                            <img th:if="${post.photo != null}" th:src="@{/dashboard/post/upload/{foto}/blog/(foto=${post.id})}" class="card-img-top" loading="lazy">
+                                            </div>
+                                            <div class="card-img-overlay d-flex align-items-start flex-column p-3">
+                                                <!-- Card overlay bottom -->
+                                                <div class="w-100 mt-auto">
+                                                    <!-- Card category -->
+                                                    <a th:text="${post.category.name}" th:href="@{'/category/' + ${post.category.slug}}" class="badge text-decoration-none text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body px-0 pt-3">
+                                        <h4 class="card-title mt-2">
+                                            <a th:href="@{'/blogs/' + ${post.slug}}" class="text-reset fw-bold text-dark" th:text="${post.title}"></a>
+                                        </h4>
+                                        <p class="card-text" th:text="${post.quote}"></p>
+                                        <!-- Card info -->
+                                        <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+                                            <li class="nav-item">
+                                                <div class="nav-link text-link">
+                                                    <div class="d-flex align-items-center position-relative">
+                                                        <div class="avatar avatar-xs">
+                                                            <img class="avatar-img rounded-circle" th:src="@{/img/avatar.jpg}" alt="avatar">
+                                                        </div>
+                                                            <span class="ms-3">by <a th:href="@{'/post/'+ ${post.author.id} + '/author'}" class="text-link" th:text="${post.author.fullname}">Samuel</a></span>
+                                                        <div class="nav-link">
+                                                            <span class="text-link" th:text="${post.created_at}"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:unless="${posts}">
+                                <p class="text-center">Post not found!</p>
+                            </div>
+                            <section>
+                                <div class="row">
+                                    <!-- Pagination Navigation -->
+                                    <div class="col-sm-6">
+                                        <nav class="pull-right">
+                                            <ul class="pagination" sd:pagination="full" sd:pagination-url="@{/blogs}" sd:pagination-split="7">
+                                                <!-- Previous Page Button -->
+                                                <li th:if="${posts.hasPrevious()}" class="page-item">
+                                                    <a class="page-link" th:href="@{/blogs(page=${posts.previousPageable().pageNumber}, size=${posts.size})}" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                <!-- Page Number Buttons -->
+                                                <li th:each="pageNo : ${#numbers.sequence(1, posts.totalPages)}" th:class="${pageNo == posts.number + 1} ? 'page-item active' : 'page-item'">
+                                                    <a class="page-link" th:href="@{/blogs(page=${pageNo - 1}, size=${posts.size})}" th:text="${pageNo}"></a>
+                                                </li>
+                                                <!-- Next Page Button -->
+                                                <li th:if="${posts.hasNext()}" class="page-item">
+                                                    <a class="page-link" th:href="@{/blogs(page=${posts.nextPageable().pageNumber}, size=${posts.size})}" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+</body>
+</html>

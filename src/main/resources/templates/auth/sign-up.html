@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Daftar Akun</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 col-xl-6 mx-auto">
+                        <div class="bg-primary rounded p-4 p-sm-5 bg-opacity-10">
+                            <h2>Daftar Akun</h2>
+                            <form class="mt-4" method="post" th:action="@{/auth/users/daftar}" th:object="${authorDto}" autocomplete="off">
+
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label">Fullname</label>
+                                    <input type="text" class="form-control" id="fullname" autofocus
+                                           th:field="*{fullname}"
+                                           th:classappend="${#fields.hasErrors('fullname')} ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">
+                                        Please provide a valid fullname.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username"
+                                           th:field="*{email}"
+                                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                                        Please provide a valid fullname.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                           th:field="*{password}"
+                                           th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                                        Please provide a valid password.
+                                    </div>
+                                </div>
+
+
+                                <div class="row align-items-center">
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-success">Registrasi</button>
+                                    </div>
+                                    <div class="col-sm-8 text-sm-end">
+                                        <span>Have an account? <a th:href="@{/auth/users/login}"><u>Login Akun</u></a></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+</body>
+</html>

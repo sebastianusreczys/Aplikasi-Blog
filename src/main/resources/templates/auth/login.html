@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Login Akun</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <main>
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 col-xl-6 mx-auto">
+                        <div class="bg-primary rounded p-4 p-sm-5 bg-opacity-10">
+                            <h2>Login Akun</h2>
+                            <form class="mt-4" method="post" th:action="@{/auth/users/login}" autocomplete="off">
+
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username"
+                                          name="username" autofocus>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                           name="password">
+                                </div>
+
+                                <div class="row align-items-center">
+                                    <div class="col-sm-4">
+                                        <button type="submit" class="btn btn-success">Masuk</button>
+                                    </div>
+                                    <div class="col-sm-8 text-sm-end">
+                                        <span>Anda punya akun? <a th:href="@{/auth/users/daftar}"><u>Registrasi</u></a></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+</body>
+</html>

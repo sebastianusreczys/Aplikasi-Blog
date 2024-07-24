@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+       layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Home</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <main>
+        <section class="pb-3 pb-lg-5 section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <a th:href="@{'/category/' + ${post.category.slug}}" class="badge text-bg-danger mb-2" th:text="${post.category.name}"></a>
+                        <h1 class="heading" th:text="${post.title}"></h1>
+                    </div>
+                    <p class="lead" th:text="${post.quote}"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <figure class="figure mt-2">
+                            <a th:href="@{/dashboard/post/upload/{foto}/blog/(foto=${post.id})}" data-glightbox="" data-gallery="image-popup">
+                                <img th:if="${post.photo != null}" th:src="@{/dashboard/post/upload/{foto}/blog/(foto=${post.id})}" class="img-fluid">
+                            </a>
+                            <figcaption class="figure-caption text-center">(Image via: <a class="text-reset" href="#">pexels.com</a>)</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pt-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <p class="card-text text-center">
+                        <div th:if="${post}">
+                            <!-- Display the first letter of the first word -->
+                            <span class="dropcap" th:text="${firstLetter}"></span>
+
+                            <!-- Display the rest of the post body -->
+                            <span th:utext="${post.body.substring(post.body.indexOf(' ') + 1)}"></span>
+                        </div>
+                        <div th:unless="${post}">
+                            <p>Post not found!</p>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</section>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-dashboard}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Category List</title>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            <h1 class="mb-2 mb-sm-0 h2">Category<span class="badge bg-primary bg-opacity-10 text-primary" th:text="${jumlah}"></span></h1>
+            <a th:href="@{/dashboard/category/form}" class="text-decoration-none d-flex justify-content-end  btn btn-primary">Create New Category</a>
+        </div>
+    </div>
+
+
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4" th:each="category : ${categories}">
+                    <div class="card  border h-100">
+                        <div class="card-header bg-white border-bottom p-3">
+                            <div class="d-md-flex align-items-center">
+                                <div class="icon-lg show bg-body rounded-circle">
+                                    <i class="bi bi-robot"></i>
+                                </div>
+                                <h1 class="h3 mb-0 ms-3" th:text="${category.name}"></h1>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-muted">Meant balls it if up doubt small purse. Required his you put the outlived answered position</p>
+                            <h2 class="count" th:text="${size[category.name]}"></h2>
+                            <span class="h6 text-muted">Total Posts</span>
+                        </div>
+                        <div class="card-footer bg-white border-top text-center p-3">
+                            <a href="#" class="btn btn-primary-soft mb-0 w-100">View Posts</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+</body>
+</html>

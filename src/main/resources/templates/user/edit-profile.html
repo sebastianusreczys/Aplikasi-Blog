@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-dashboard}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User | Edit Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <section layout:fragment="content" class="section">
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="h2 mb-0">Edit Profile</h1>
+                    </div>
+                </div>
+            </div>
+            <section class="edit-profile section">
+                <div class="container">
+                    <div class="row gy-4">
+                        <div class="col-12">
+                            <div class="col-md-7">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h1 class="h5 mb-0">Profile</h1>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="#" method="post">
+                                            <div class="mb-3">
+                                                <label for="fullname" class="form-label">Fullname</label>
+                                                <input type="text" class="form-control" id="fullname" th:field="*{author.fullname}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="username" class="form-label">Username</label>
+                                                <input type="text" class="form-control" id="username" th:field="*{user.username}">
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 ">
+                                                            <label>
+                                                                <img th:src="@{/img/avatar.jpg}" class="avatar avatar-img avatar-xs" alt="Avatar">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <input type="file" name="file" class="form-control me-2">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </section>
+</body>
+</html>

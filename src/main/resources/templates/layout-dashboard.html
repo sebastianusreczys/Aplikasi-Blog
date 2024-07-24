@@ -1,0 +1,101 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+  <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+
+<body>
+</head>
+
+
+<header class="border-bottom">
+  <nav class="navbar navbar-expand-xl bg-white">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/dashboard}">Dashboard</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Post
+            </a>
+
+            <ul class="dropdown-menu shadow pt-3">
+              <li><a class="dropdown-item" th:href="@{/dashboard/post/form}">Create A Post</a></li>
+              <li><a class="dropdown-item" th:href="@{/dashboard/post/list}">Post List</a></li>
+              <div sec:authorize ="hasAnyAuthority('EDIT_CATEGORY','TAMBAH_CATEGORY', 'HAPUS_CATEGORY')">
+                <li><a class="dropdown-item" th:href="@{/dashboard/category/categories}">Post Category</a></li>
+              </div>
+            </ul>
+          </li>
+        </ul>
+          <!-- Profile dropdown START -->
+          <div class="nav-item ms-2 ms-md-3 dropdown">
+            <!-- Avatar -->
+            <a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="avatar-img rounded-circle" th:src="@{/img/avatar.jpg}" alt="avatar">
+            </a>
+
+            <!-- Profile dropdown START -->
+            <ul class="dropdown-menu dropdown-animation shadow pt-3" aria-labelledby="profileDropdown">
+                <li class="px-3">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar me-3">
+                      <img class="avatar-img rounded-circle shadow" th:src="@{/img/avatar.jpg}" alt="avatar">
+                    </div>
+                    <div>
+                      <a class="h6 mt-2 mt-sm-0 text-decoration-none" href="#" th:text="${author.fullname}"></a>
+                      <p class="small m-0" th:text="${username}">example@gmail.com</p>
+                    </div>
+                  <hr>
+                </div>
+                </li>
+              <!-- Links -->
+              <li>
+                <a class="dropdown-item" th:href="@{/users/edit(id=${author.id})}"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a>
+              </li>
+              <li>
+                <form method="post" th:action="@{/logout}">
+                <button type="submit" class="dropdown-item">
+                  <i class="bi bi-power fa-fw me-2"></i> Logout
+                </button>
+                </form>
+              </li>
+            </ul>
+            <!-- Profile dropdown END -->
+          </div>
+          <!-- Profile dropdown END -->
+
+          <!-- Nav right END -->
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<section layout:fragment="content">
+
+</section>
+
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-dashboard}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Create A Post</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <main>
+        <section class="section py-4">
+            <div class="container">
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <h1 class="mb-0 h2">Create New Post</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border">
+                            <div class="card-body">
+                                <form th:action="@{/dashboard/post/form(id = ${post.id})}" method="post" th:object="${post}" enctype="multipart/form-data" >
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label for="title" class="form-label">Judul</label>
+                                                <input type="text" name="title" th:field="*{title}" oninput="generateSlug()" class="form-control" id="title" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label for="slug" class="form-label">Slug</label>
+                                                <input type="text" name="slug" th:field="*{slug}" class="form-control" id="slug" required>
+                                                <div id="slugHelp" class="form-text">slug akan terisi otomastis saat anda mengetik judul</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label for="quote" class="form-label">Quote</label>
+                                                <input type="text" name="quote" th:field="*{quote}" class="form-control" id="quote" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label for="image" class="form-label">Gambar</label>
+                                                    <img class="img-preview img-fluid mb-3" th:if="${post.photo !=null}" th:src="@{/dashboard/post/upload/{foto}/blog/(foto=${post.id})}">
+                                                <img class="img-preview img-fluid mb-3" th:unless="${post.photo != null}" src="path/to/placeholder/image.jpg">
+                                                 <input class="form-control"  name="file" type="file" id="image" accept="image/*" onchange="previewImage(this)">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <input id="body" th:field="*{body}" type="hidden" name="body" required>
+                                                <trix-editor input="body" ></trix-editor>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <select class="form-select" name="category" required>
+                                                    <option value="">--pilih category--</option>
+                                                    <option th:each="category : ${categories}"
+                                                            th:value="${category.id}"
+                                                            th:text="${category.name}"
+                                                            th:selected="${category.id == (post.category != null ? post.category.id : null)}">
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" type="submit">Post</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script th:src="@{/js/script.js}"></script>
+</section>
+</body>
+</html>

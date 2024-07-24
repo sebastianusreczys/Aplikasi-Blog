@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog | Author List</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+    <section layout:fragment="content">
+
+        <section class="pt-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Author info START -->
+                        <div class="bg-primary bg-opacity-10 d-md-flex p-3 p-sm-4 my-3 text-center text-md-start rounded">
+                            <!-- Avatar -->
+                            <div class=" me-0 me-md-4">
+                                <div class="avatar avatar-xxl">
+                                    <img class="avatar-img rounded-circle" th:src="@{/img/avatar.jpg}" alt="avatar">
+                                </div>
+                                <!-- Post count -->
+                                <div class="text-center mt-n3 position-relative">
+                                    <span class="badge bg-danger fs-6" th:text="${count}">6 posts</span>
+                                </div>
+                            </div>
+                            <!-- Info -->
+                            <div>
+                                <h2 class="m-0" th:text="${author.fullname}">Louis Ferguson</h2>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item" th:text="${author.user.role.id}" ><i class="bi bi-person-fill me-1"></i> An editor at Blogzine</li>
+                                    <li class="list-inline-item"><i class="bi bi-geo-alt me-1"></i> New York</li>
+                                </ul>
+                                <p class="my-2">Louis Ferguson is a senior editor for the blogzine and also reports on breaking news based in London. He has written about government, criminal justice, and the role of money in politics since 2015.</p>
+                                <!-- Social icons -->
+                                <ul class="nav justify-content-center justify-content-md-start">
+                                    <li class="nav-item">
+                                        <a class="nav-link ps-0 pe-2 fs-5" href="#"><i class="fab fa-facebook-square"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-twitter-square"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link px-2 fs-5" href="#"><i class="fab fa-linkedin"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Author info END -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6"th:each="post : ${posts}">
+                        <div class="card">
+                            <div class="position-relative">
+                                <div class="card-img-container">
+                                    <img th:if="${post.photo == null}"  th:src="@{/img/gitar.jpg}"  class="card-img" alt="guitar">
+                                    <img th:if="${post.photo != null}" th:src="@{/dashboard/post/upload/{foto}/blog/(foto=${post.id})}" class="card-img-top" loading="lazy">
+                                </div>
+                                <div class="card-img-overlay d-flex align-items-start flex-column p-3">
+                                    <!-- Card overlay bottom -->
+                                    <div class="w-100 mt-auto">
+                                        <!-- Card category -->
+                                        <a th:text="${post.category.name}" th:href="@{'/category/' + ${post.category.slug}}" class="badge text-decoration-none text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pt-3">
+                            <h4 class="card-title mt-2">
+                                <a th:href="@{'/blogs/' + ${post.slug}}" class="text-reset fw-bold text-dark" th:text="${post.title}"></a>
+                            </h4>
+                            <p class="card-text" th:text="${post.quote}"></p>
+                            <!-- Card info -->
+                            <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+                                <li class="nav-item">
+                                    <div class="nav-link text-dark">
+                                        <div class="d-flex align-items-center position-relative">
+<!--                                            <div class="avatar avatar-xs">-->
+<!--                                                <img class="avatar-img rounded-circle" th:src="@{/img/avatar.jpg}" alt="avatar">-->
+<!--                                            </div>-->
+<!--                                            <span class="ms-3 text-dark">by <a th:href="@{${post.author.id} + '/authors'}" class="text-dark" th:text="${post.author.fullname}"></a></span>-->
+<!--                                            <div class="nav-link text-dark">-->
+<!--                                                <span th:text="${post.created_at}"></span>-->
+<!--                                            </div>-->
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+
+</body>
+</html>
